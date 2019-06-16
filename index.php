@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	require '../vendor/autoload.php';
+	require 'vendor/autoload.php';
 
 	\Slim\Slim::registerAutoloader();
 
@@ -18,7 +18,7 @@
   /* security */
 	require "common/security.php";
   /* enviroment */
-  require "../env/env.dev.php";
+  require "env/env.dev.php";
 
 	/* Common */
 	require "common/conexion.php";

@@ -1,21 +1,11 @@
-## Sistema de Antiguos Egresados
+## Servicios Rest del sistema de emergencia
 
 #### Autores
-[@JoseChirinos](http://josechirinos.com) y  [@DiegoAJS](https://github.com/DiegoAJS)
+[@JoseChirinos](http://josechirinos.com) y  [@fjgeek](https://github.com/Fjgeek)
 
 El sistema de antiguos egresados permite realizar un seguimiento a los estudiantes que aun no lograron graduarse, esta desarrollado en las siguientes tecnologias:
 
-### Frontend: (HTML, CSS, JS)
-
-- ReactJS: La mejor tecnologia para el frontend, es open source basaod en componentes, maneja el DOM Virtual.
-
-- Material Design Web
-
-- Axios, manejo de Peticiones AJAX, de forma optima y segura.
-
-- JWT: Json Web Token para las sesiones.
-
-### Backend: (PHP, MYSQL)
+### Detalles técnicos
 
 El backend se encarga del manejo de datos, procesos complejos y transacciones, se utilizara APIs REST.
 
