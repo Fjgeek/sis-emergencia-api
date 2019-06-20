@@ -22,8 +22,8 @@
 
 	/* Common */
 	require "common/conexion.php";
-  require "common/response.php";
-  require "common/verify-captcha.php";
+  	require "common/response.php";
+  	require "common/verify-captcha.php";
 	require "common/image-resizer.php";
 
 	/* Models */
