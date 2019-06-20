@@ -44,4 +44,8 @@
 		echo 'Funciona Correctamente '.$id;
 	});
 
+	$app->get('/atendido/:idCama/:rfid', function($idCama, $rfid){
+		echo 'Funcion Cumplida '.$idCama." ".$rfid;
+	});
+
 	$app->run();
