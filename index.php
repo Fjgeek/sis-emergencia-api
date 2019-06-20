@@ -9,10 +9,15 @@
 
 	$corsOptions = array(
     "origin" => "*",
-    "exposeHeaders" => array("Content-Type", "X-Requested-With", "X-authentication", "X-client"),
-    "allowMethods" => array('GET', 'POST', 'PUT', 'DELETE', 'OPTIONS')
+    "exposeHeaders" => array(
+			"X-API-KEY", "Origin", "X-Requested-With" , "Authorization" ,"Content-Type", "Accept", "Access-Control-Request-Method", "x-xsrf-token"
+		),
+		"maxAge" => 1728000,
+    "allowCredentials" => True,
+		"allowMethods" => array('GET', 'POST', 'PUT', 'DELETE', 'OPTIONS')
 	);
 	$app->add(new \CorsSlim\CorsSlim($corsOptions));
+
 
 
   /* security */
