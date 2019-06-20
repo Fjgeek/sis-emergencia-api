@@ -3,8 +3,6 @@
 #### Autores
 [@JoseChirinos](http://josechirinos.com) y  [@fjgeek](https://github.com/Fjgeek)
 
-El sistema de antiguos egresados permite realizar un seguimiento a los estudiantes que aun no lograron graduarse, esta desarrollado en las siguientes tecnologias:
-
 ### Detalles técnicos
 
 El backend se encarga del manejo de datos, procesos complejos y transacciones, se utilizara APIs REST.
