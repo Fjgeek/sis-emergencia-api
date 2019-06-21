@@ -32,3 +32,7 @@
   - id_historial
   - id_emergencia
   - estado (true)
+
+- RFID_DISPONABILIDAD
+  - RFID
+  - ESTADO (ASIGNADO,LIBRE, BLOQUEADO)

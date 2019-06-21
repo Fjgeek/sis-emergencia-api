@@ -47,5 +47,8 @@
 	$app->get('/atendido/:idCama/:rfid', function($idCama, $rfid){
 		echo 'Funcion Cumplida '.$idCama." ".$rfid;
 	});
+	$app->get('/registro/:rfidRegistro', function($rfidRegistro){
+		echo 'Funcion Cumplida '.$rfidRegistro;
+	});
 
 	$app->run();
