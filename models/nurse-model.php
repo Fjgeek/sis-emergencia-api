@@ -10,5 +10,6 @@
       $this->fpdo		= $this->conexion->getFluent();
       $this->response = new Response();
     }
+    
   }
 ?>
