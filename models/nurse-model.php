@@ -11,5 +11,56 @@
       $this->response = new Response();
     }
     
+    public function getAll(){
+      /* 1. consulta with FluentPDO */
+      $query = $this->fpdo->from($this->table)->orderBy('id DESC')->execute();
+      $result = null;
+      /* 2. encriptar IDs */
+      if($query->rowCount()!=0){
+        $result = $query->fetchAll(PDO::FETCH_OBJ);
+        $status = true;
+        $msg = "Lista de enfermeras habilitadas";
+      }
+      else{
+        $result = array();
+        $status = false;
+        $msg = "No existen registros";
+      }
+      /* 3. retornar valores en un array Response */
+      return $this->response->send(
+        $result,
+        $status,
+        $msg,
+        []
+      );
+    }
+
+    public function getId($id){
+      /* 1. consulta with FluentPDO */
+      $query = $this->fpdo->from($this->table)->where('id',$id)->execute();
+      $result = null;
+      /* 2. encriptar IDs */
+      if($query->rowCount()!=0){
+        $result = $query->fetchObject();
+        $status = true;
+        $msg = "Encontrado con éxito";
+      }
+      else{
+        $result = array();
+        $status = false;
+        $msg = "No se encontro ningun resultado";
+      }
+      /* 3. retornar valores en un array */
+      return $this->response->send(
+        $result,
+        $status,
+        $msg,
+        []
+      );
+    }
+
+    public function add($data){
+      
+    }
   }
 ?>

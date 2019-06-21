@@ -7,16 +7,16 @@
 
 	$app = new \Slim\Slim();
 
-	// $corsOptions = array(
-    // 	"origin" => "*",
-    // 	"exposeHeaders" => array(
-	// 		"X-API-KEY", "Origin", "X-Requested-With" , "Authorization" ,"Content-Type", "Accept", "Access-Control-Request-Method", "x-xsrf-token"
-	// 	),
-	// 	"maxAge" => 1728000,
-    // 	"allowCredentials" => True,
-	// 	"allowMethods" => array('GET', 'POST', 'PUT', 'DELETE', 'OPTIONS')
-	// );
-	// $app->add(new \CorsSlim\CorsSlim($corsOptions));
+	$corsOptions = array(
+    	"origin" => "*",
+    	"exposeHeaders" => array(
+			"X-API-KEY", "Origin", "X-Requested-With" , "Authorization" ,"Content-Type", "Accept", "Access-Control-Request-Method", "x-xsrf-token"
+		),
+		"maxAge" => 1728000,
+    	"allowCredentials" => True,
+		"allowMethods" => array('GET', 'POST', 'PUT', 'DELETE', 'OPTIONS')
+	);
+	$app->add(new \CorsSlim\CorsSlim($corsOptions));
 
 
 
