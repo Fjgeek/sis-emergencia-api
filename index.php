@@ -18,22 +18,20 @@
 	);
 	$app->add(new \CorsSlim\CorsSlim($corsOptions));
 
+	/* enviroment */
+	require "env/env.dev.php";
+	/* Autoload */
+	$folders = [
+		'common',
+		'models',
+		'routes'
+	];
+	foreach ($folders as $f) {
+		foreach (glob("$f/*.php") as $k => $filename) {
+			require $filename;
+		}
+	} 
 
-
-  	/* security */
-	require "common/security.php";
-  	/* enviroment */
-  	require "env/env.dev.php";
-
-	/* Common */
-	require "common/conexion.php";
-  	require "common/response.php";
-  	require "common/verify-captcha.php";
-	require "common/image-resizer.php";
-
-	/* Models */
-	
-	/* Routes */
 	
 	/* Hello World */
 	$app->get('/', function(){
