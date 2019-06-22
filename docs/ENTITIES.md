@@ -34,5 +34,5 @@
   - estado (true)
 
 - RFID_DISPONABILIDAD
-  - RFID
-  - ESTADO (ASIGNADO,LIBRE, BLOQUEADO)
+  - rfid
+  - estado (ASIGNADO,LIBRE, BLOQUEADO)
