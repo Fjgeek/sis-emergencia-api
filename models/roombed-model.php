@@ -1,6 +1,6 @@
 <?php
 
-  class EmergencyRoomModel{
+  class RoomBedModel{
     private $conexion;    
     private $response;
 

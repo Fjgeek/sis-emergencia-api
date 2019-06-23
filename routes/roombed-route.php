@@ -1,9 +1,9 @@
 <?php
-  $app->get('/emergency/roombed', function() use($app){
+  $app->get('/roombed/all', function() use($app){
     $app->response->headers->set('Content-type','application/json');
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     try {
-      $obj = new EmergencyRoomModel();
+      $obj = new RoomBedModel();
       $obj->getAll();
       //$app->response->status(200);
       //$app->response->body(json_encode( $obj->getAll() ));
