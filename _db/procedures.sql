@@ -86,15 +86,22 @@ BEGIN
     SET idRepeat = (SELECT id_nurse FROM nurse WHERE id_nurse = _idNurse ORDER BY id_nurse DESC LIMIT 1);
     
     if !isnull(idRepeat) THEN
-        UPDATE nurse SET
-            first_name = _firstName, 
-            last_name = _lastName, 
-            ci = _ci,	
-            cellphone = _cellphone,
-            updated = CURRENT_TIMESTAMP
-            WHERE id_nurse = _idNurse;
-        SET msg = "Actualizado con exito";
-        SET idInsert = _idNurse;
+        SET idRepeat = (SELECT id_nurse FROM nurse WHERE id_nurse != _idNurse AND ci = _ci ORDER BY id_nurse DESC LIMIT 1);
+        if isnull(idRepeat) THEN
+			UPDATE nurse SET
+				first_name = _firstName, 
+				last_name = _lastName, 
+				ci = _ci,	
+				cellphone = _cellphone,
+				updated = CURRENT_TIMESTAMP
+				WHERE id_nurse = _idNurse;
+			SET msg = "Actualizado con exito";
+			SET idInsert = _idNurse;
+        ELSE
+			SET msg = "El ci ya esta en uso";
+			SET idInsert = idRepeat;
+            SET failed = true;
+        END IF;
     ELSE
 		SET msg = "El usuario no esta registrado";
         SET idInsert = idRepeat;
