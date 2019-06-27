@@ -33,10 +33,18 @@
           $result[$index]['room_label'] = $value->room_label;
           array_push($result[$index]['beds'], array("id_bed"=>$value->id_bed, "bed_label"=>$value->bed_label));
         }
-        echo json_encode($result);
+        $status = true;
+        $msg = "Se encontro ".count($result)." elementos.";
       }else{
-        echo 'no existe nada xd';
+        $status = false;
+        $msg = "Aún no se registros salones con camas";
       }
+      return $this->response->send(
+        $result,
+        $status,
+        $msg,
+        []
+      );
     }
 
     // public function getId($id){
