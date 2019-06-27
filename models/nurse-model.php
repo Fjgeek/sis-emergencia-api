@@ -152,6 +152,7 @@
     public function disabled($data){
       /* 1. consulta with FluentPDO */
       $disabledData = array(
+        "updated"=> new FluentLiteral("CURRENT_TIMESTAMP"),
         "enabled"=> new FluentLiteral("0"),
         "rfid"=>""
       );
@@ -186,6 +187,7 @@
       if($query->rowCount() == 0 ){
         /* 2.1. Habilitar Cuenta */
         $enabledData = array(
+          "updated"=> new FluentLiteral("CURRENT_TIMESTAMP"),
           "enabled"=> new FluentLiteral("1"),
           "rfid"=>$data->rfid
         );
