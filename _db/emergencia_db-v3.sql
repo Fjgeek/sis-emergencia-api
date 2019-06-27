@@ -1,3 +1,4 @@
+use emergencia_db;
 -- phpMyAdmin SQL Dump
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
@@ -26,7 +27,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`` PROCEDURE `insertNurse` (IN `_rfid` VARCHAR(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
+CREATE PROCEDURE `insertNurse` (IN `_rfid` VARCHAR(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
 
     DECLARE error INT DEFAULT 0;
     DECLARE msg TEXT DEFAULT '';
@@ -72,7 +73,7 @@ CREATE DEFINER=`` PROCEDURE `insertNurse` (IN `_rfid` VARCHAR(11), IN `_firstNam
 	END IF;
 END$$
 
-CREATE DEFINER=`` PROCEDURE `updateNurse` (IN `_idNurse` INT(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
+CREATE PROCEDURE `updateNurse` (IN `_idNurse` INT(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
 
     DECLARE error INT DEFAULT 0;
     DECLARE msg TEXT DEFAULT '';
@@ -405,7 +406,7 @@ CREATE TABLE `view_room_bed` (
 --
 DROP TABLE IF EXISTS `view_room_bed`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_room_bed`  AS  select `r`.`id_room` AS `id_room`,`r`.`label` AS `room_label`,`b`.`id_bed` AS `id_bed`,`b`.`label` AS `bed_label` from ((`room_bed` `rb` join `bed` `b` on(`b`.`id_bed` = `rb`.`bed_id`)) join `room` `r` on(`r`.`id_room` = `rb`.`room_id`)) ;
+CREATE VIEW `view_room_bed`  AS  select `r`.`id_room` AS `id_room`,`r`.`label` AS `room_label`,`b`.`id_bed` AS `id_bed`,`b`.`label` AS `bed_label` from ((`room_bed` `rb` join `bed` `b` on(`b`.`id_bed` = `rb`.`bed_id`)) join `room` `r` on(`r`.`id_room` = `rb`.`room_id`)) ;
 
 --
 -- Índices para tablas volcadas
