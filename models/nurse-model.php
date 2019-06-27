@@ -19,7 +19,31 @@
       if($query->rowCount()!=0){
         $result = $query->fetchAll(PDO::FETCH_OBJ);
         $status = true;
-        $msg = "Lista de enfermeras habilitadas";
+        $msg = "Lista de cuentas habilitadas";
+      }
+      else{
+        $result = array();
+        $status = false;
+        $msg = "No existen registros";
+      }
+      /* 3. retornar valores en un array Response */
+      return $this->response->send(
+        $result,
+        $status,
+        $msg,
+        []
+      );
+    }
+
+    public function getAllDisabled(){
+      /* 1. consulta with FluentPDO */
+      $query = $this->fpdo->from($this->table)->where('enabled=0')->orderBy('id_nurse DESC')->execute();
+      $result = null;
+      /* 2. encriptar IDs */
+      if($query->rowCount()!=0){
+        $result = $query->fetchAll(PDO::FETCH_OBJ);
+        $status = true;
+        $msg = "Lista de cuentas deshabilitadas";
       }
       else{
         $result = array();
@@ -46,7 +70,7 @@
         $msg = "Encontrado con éxito";
       }
       else{
-        $result = array();
+        $result = null;
         $status = false;
         $msg = "No se encontro ningun resultado";
       }
