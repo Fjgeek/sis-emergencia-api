@@ -52,7 +52,7 @@
         $msg = "RFID registrado y habilitado";
       }
 
-      /* Retornar valores en un array */
+      // Retornar valores en un array
       return $this->response->send(
         $result,
         $status,
@@ -65,7 +65,11 @@
       $query = $this->fpdo->from($this->table)->where('enabled=1')->limit(1)->execute();
       if($query->rowCount() != 0){
         $code = $query->fetchObject();
-        /* Verificar disponibilidad */
+        // update all
+        $query = $this->fpdo->update($this->table)->set(array(
+          "enabled"=> new FluentLiteral("0")
+        ))->execute();
+        // Verificar disponibilidad
         $query = $this->fpdo->from('nurse')->where('rfid',$code->rfid)->limit(1)->execute();
         if($query->rowCount()!=0){
           $nurse = $query->fetchObject();
@@ -92,7 +96,7 @@
         $status = false;
         $msg = "No se detectó tarjeta RFID";
       }
-      /* Retornar valores en un array */
+      // Retornar valores en un array
       return $this->response->send(
         $result,
         $status,
