@@ -4,6 +4,7 @@
 	require 'vendor/autoload.php';
 
 	\Slim\Slim::registerAutoloader();
+	\Moment\Moment::setLocale('es_ES');
 
 	$app = new \Slim\Slim();
 
