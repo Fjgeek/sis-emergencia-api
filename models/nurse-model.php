@@ -104,7 +104,7 @@
         $status = true;
       }else{
         $result = -1;
-        $message = $objR->msg;
+        $message = "El CI ya fue registrado";
         $status = false;
       }
 
