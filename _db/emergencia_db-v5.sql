@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 29-06-2019 a las 17:07:28
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.3.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 30-06-2019 a las 00:45:35
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE PROCEDURE `insertNurse` (IN `_rfid` VARCHAR(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertNurse` (IN `_rfid` VARCHAR(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
 
     DECLARE error INT DEFAULT 0;
     DECLARE msg TEXT DEFAULT '';
@@ -72,7 +72,7 @@ CREATE PROCEDURE `insertNurse` (IN `_rfid` VARCHAR(11), IN `_firstName` VARCHAR(
 	END IF;
 END$$
 
-CREATE PROCEDURE `updateNurse` (IN `_idNurse` INT(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateNurse` (IN `_idNurse` INT(11), IN `_firstName` VARCHAR(100), IN `_lastName` VARCHAR(100), IN `_ci` VARCHAR(20), IN `_cellphone` VARCHAR(50))  BEGIN
 
     DECLARE error INT DEFAULT 0;
     DECLARE msg TEXT DEFAULT '';
@@ -399,6 +399,19 @@ INSERT INTO `room_bed` (`id_room_bed`, `room_id`, `bed_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `view_emergency_now_detail`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `view_emergency_now_detail` (
+`id_emergency` int(11)
+,`labelRoom` varchar(40)
+,`labelBed` varchar(40)
+,`time_request` time
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `view_room_bed`
 -- (Véase abajo para la vista actual)
 --
@@ -412,11 +425,20 @@ CREATE TABLE `view_room_bed` (
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `view_emergency_now_detail`
+--
+DROP TABLE IF EXISTS `view_emergency_now_detail`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_emergency_now_detail`  AS  select `e`.`id_emergency` AS `id_emergency`,`r`.`label` AS `labelRoom`,`b`.`label` AS `labelBed`,`e`.`time_request` AS `time_request` from ((`emergency` `e` join `room` `r` on((`e`.`room_id` = `r`.`id_room`))) join `bed` `b` on((`e`.`bed_id` = `b`.`id_bed`))) where (`e`.`enabled` = 1) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `view_room_bed`
 --
 DROP TABLE IF EXISTS `view_room_bed`;
 
-CREATE VIEW `view_room_bed`  AS  select `r`.`id_room` AS `id_room`,`r`.`label` AS `room_label`,`b`.`id_bed` AS `id_bed`,`b`.`label` AS `bed_label` from ((`room_bed` `rb` join `bed` `b` on(`b`.`id_bed` = `rb`.`bed_id`)) join `room` `r` on(`r`.`id_room` = `rb`.`room_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_room_bed`  AS  select `r`.`id_room` AS `id_room`,`r`.`label` AS `room_label`,`b`.`id_bed` AS `id_bed`,`b`.`label` AS `bed_label` from ((`room_bed` `rb` join `bed` `b` on((`b`.`id_bed` = `rb`.`bed_id`))) join `room` `r` on((`r`.`id_room` = `rb`.`room_id`))) ;
 
 --
 -- Índices para tablas volcadas

@@ -18,9 +18,21 @@
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     try {
       $obj = new EmergencyModel();
-      $obj->emergencyNow();
-      // $app->response->status(200);
-      // $app->response->body(json_encode( $obj->requestEmergency($id_bed) ));
+      $app->response->status(200);
+      $app->response->body(json_encode( $obj->emergencyNow() ));
+    }catch(PDOException $e) {
+      $app->response->status(500);
+      $app->response->body(json_encode( array('result'=>[],'status'=>false,'message'=>$e->getMessage(),'error'=>'500') ));
+    }
+  });
+
+  $app->get('/emergency/now/detail', function() use($app){
+    $app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    try {
+      $obj = new EmergencyModel();
+      $app->response->status(200);
+      $app->response->body(json_encode( $obj->emergencyNowDetail() ));
     }catch(PDOException $e) {
       $app->response->status(500);
       $app->response->body(json_encode( array('result'=>[],'status'=>false,'message'=>$e->getMessage(),'error'=>'500') ));
