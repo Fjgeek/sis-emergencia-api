@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "02a57e5e-db1a-4d62-aad1-cd076ffdf6ac",
+		"name": "emergencia_services",
+		"description": "API REST de la aplicación de emergencias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "nurse - all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/all",
+				"description": "Obtener a todas las enfermeras registradas"
+			},
+			"response": []
+		},
+		{
+			"name": "nurse - all - disabled",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/all/disabled",
+				"description": "Obtener a todas las enfermeras deshabilitadas"
+			},
+			"response": []
+		},
+		{
+			"name": "nurse - add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"rfid\": \"12ff23gg34\",\n\t\"first_name\": \"Dayana\",\n\t\"last_name\": \"Baldiviezo\",\n\t\"ci\": \"10671002\",\n\t\"cellphone\": \"67895532\"\n}"
+				},
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/add",
+				"description": "Registar un nueva enfermera"
+			},
+			"response": []
+		},
+		{
+			"name": "nurse - update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_nurse\": \"2\",\n\t\"first_name\": \"Lady Ximena\",\n\t\"last_name\": \"Ramos Lopez\",\n\t\"ci\": \"12395771\",\n\t\"cellphone\": \"67895532\"\n}"
+				},
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/update",
+				"description": "Actualizar datos de una enfermera"
+			},
+			"response": []
+		},
+		{
+			"name": "nurse - disabled",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_nurse\":\"1\"\n}"
+				},
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/disabled",
+				"description": "Deshabilitar cuenta de una enfermera - borrando su rfid y su enabled"
+			},
+			"response": []
+		},
+		{
+			"name": "nurse - enabled",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_nurse\":\"1\",\n\t\"rfid\":\"12ff23gg34\"\n}"
+				},
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/enabled",
+				"description": "Habilitar cuenta de una enfermera con un nuevo rfid"
+			},
+			"response": []
+		},
+		{
+			"name": "nurse - id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/1",
+				"description": "Obtener una enfermera especifica con su id"
+			},
+			"response": []
+		},
+		{
+			"name": "read - rfid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/read/78f588ju32",
+				"description": "Leer, registrar código rfid y habilitarlo"
+			},
+			"response": []
+		},
+		{
+			"name": "read - now",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/read/now",
+				"description": "Leer tarjeta habilitada"
+			},
+			"response": []
+		},
+		{
+			"name": "emergency - request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/emergency/request/40",
+				"description": "Registrar una solicitud de emergencia en una cama especifica id_bed"
+			},
+			"response": []
+		},
+		{
+			"name": "roombed - all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/roombed/all",
+				"description": "Obtener todas las salas y sus camas habilitadas"
+			},
+			"response": []
+		},
+		{
+			"name": "emergency - now",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/emergency/now",
+				"description": "Consulta las emergencias actuales"
+			},
+			"response": []
+		},
+		{
+			"name": "emergency - now - detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/emergency/now/detail",
+				"description": "Muestra la lista de emergencias solicitadas, con detalles"
+			},
+			"response": []
+		},
+		{
+			"name": "emergency - success",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/emergency/success/35/65ff54gg43",
+				"description": "emergencia Atendida id_cama/rifd"
+			},
+			"response": []
+		},
+		{
+			"name": "zone - fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/test/fecha",
+				"description": "Test de libreria moment php"
+			},
+			"response": []
+		},
+		{
+			"name": "demand - all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/sis-emergencia-api/nurse/all"
+			},
+			"response": []
+		}
+	]
+}
