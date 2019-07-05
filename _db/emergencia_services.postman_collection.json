@@ -205,7 +205,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:8080/sis-emergencia-api/nurse/all"
+				"url": "http://localhost:8080/sis-emergencia-api/demand/all"
 			},
 			"response": []
 		}
