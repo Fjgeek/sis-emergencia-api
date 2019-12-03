@@ -18,8 +18,9 @@
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     try {
       $obj = new EmergencyModel();
-      $app->response->status(200);
-      $app->response->body(json_encode( $obj->emergencyNow() ));
+      $obj->emergencyNow();
+      // $app->response->status(200);
+      // $app->response->body(json_encode( $obj->emergencyNow() ));
     }catch(PDOException $e) {
       $app->response->status(500);
       $app->response->body(json_encode( array('result'=>[],'status'=>false,'message'=>$e->getMessage(),'error'=>'500') ));

@@ -12,14 +12,16 @@
     }
     
     public function requestEmergency($id_bed){
-      $where = array(
-        "bed_id"=>$id_bed,
-        "enabled"=> new FluentLiteral("1")
-      );
-      $queryEmergency = $this->fpdo->from('emergency')->where($where)->orderBy('id_emergency DESC')->limit(1)->execute();
-      // Verificamos si ya se registro una emergencia de la misma cama
-      if($queryEmergency->rowCount() == 0){
-        $queryRoomBed = $this->fpdo->from('room_bed')->where('bed_id',$id_bed)->limit(1)->execute();
+      $queryEmergency = $this->fpdo->from('bed')->where('id_bed = '.$id_bed.' AND priority != 0')->orderBy('id_bed DESC')->limit(1)->execute();
+      if($queryEmergency->rowCount() != 0){
+        $where = array(
+          "bed_id"=>$id_bed,
+          "enabled"=> new FluentLiteral("1"),
+        );
+        $queryEmergency = $this->fpdo->from('emergency')->where($where)->orderBy('id_emergency DESC')->limit(1)->execute();
+        // Verificamos si ya se registro una emergencia de la misma cama
+        if($queryEmergency->rowCount() == 0){
+          $queryRoomBed = $this->fpdo->from('room_bed')->where('bed_id',$id_bed)->limit(1)->execute();
         // Verificarmos que la cama exista
         if($queryRoomBed->rowCount() != 0){
           // Registramos la emergencia
@@ -33,7 +35,6 @@
           );
           $query = $this->fpdo->insertInto($this->table)->values($values);
           $idInsert = $query->execute();
-          var_dump($idInsert);
           $result = array(
             "id_emergency"=> $idInsert
           );
@@ -45,14 +46,20 @@
           $msg = "La cama no esta registrada";
           $status = false;
         }
+        }else{
+          // Ya existe una emergencia registrada para esta cama
+          $emergency = $queryEmergency->fetchObject();
+          $result = array(
+            "id_emergency"=> $emergency->id_emergency
+          );
+          $msg = "Ya se solicito atención";
+          $status = true;
+        }
       }else{
-        // Ya existe una emergencia registrada para esta cama
-        $emergency = $queryEmergency->fetchObject();
-        $result = array(
-          "id_emergency"=> $emergency->id_emergency
-        );
-        $msg = "Ya se solicito atención";
-        $status = true;
+        // La cama esta vacia o no existe
+        $result = null;
+        $msg = "Cama sin paciente";
+        $status = false;
       }
       // Respuesta
       return $this->response->send(
@@ -70,7 +77,7 @@
         "bed_id" => $id_bed,
         "enabled"=> new FluentLiteral("1"),
       );
-      $request_emergency = $this->fpdo->from($this->table)->where($where)->limit(1)->execute();
+      // $request_emergency = $this->fpdo->from($this->table)->where($where)->limit(1)->execute();
       if($request_emergency->rowCount() != 0){ // Si existe una peticion
 
         // Verificamos si existe la enfermera
