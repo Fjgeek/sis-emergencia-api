@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 03-12-2019 a las 11:26:17
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.3.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 11-12-2019 a las 04:24:41
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -143,7 +143,7 @@ CREATE TABLE `bed` (
 --
 
 INSERT INTO `bed` (`id_bed`, `label`, `priority`, `created`, `updated`, `enabled`) VALUES
-(1, 'Cama 1', 0, '2019-06-22 00:00:00', '2019-06-22 00:00:00', b'1'),
+(1, 'Cama 1', 1, '2019-06-22 00:00:00', '2019-06-22 00:00:00', b'1'),
 (2, 'Cama 2', 0, '2019-06-22 00:00:00', '2019-06-22 00:00:00', b'1'),
 (3, 'Cama 3', 0, '2019-06-23 00:00:00', '2019-06-23 00:00:00', b'1'),
 (4, 'Cama 4', 0, '2019-06-23 00:00:00', '2019-06-23 00:00:00', b'1'),
@@ -225,7 +225,8 @@ INSERT INTO `demand` (`id_demand`, `nurse_id`, `emergency_id`, `time_attend`, `c
 (10, 1, 12, '09:49:16', '2019-12-03 09:49:16'),
 (11, 1, 13, '09:51:53', '2019-12-03 09:51:53'),
 (12, 1, 14, '09:55:47', '2019-12-03 09:55:47'),
-(13, 1, 15, '09:56:54', '2019-12-03 09:56:54');
+(13, 1, 15, '09:56:54', '2019-12-03 09:56:54'),
+(14, 1, 16, '23:21:59', '2019-12-10 23:21:59');
 
 -- --------------------------------------------------------
 
@@ -261,7 +262,8 @@ INSERT INTO `emergency` (`id_emergency`, `room_id`, `bed_id`, `time_request`, `c
 (12, 1, 1, '06:48:08', '2019-12-01 06:48:08', b'0'),
 (13, 1, 1, '09:49:30', '2019-12-03 09:49:30', b'0'),
 (14, 1, 1, '09:52:00', '2019-12-03 09:52:00', b'0'),
-(15, 1, 1, '09:56:16', '2019-12-03 09:56:16', b'0');
+(15, 1, 1, '09:56:16', '2019-12-03 09:56:16', b'0'),
+(16, 1, 1, '23:02:59', '2019-12-10 23:02:59', b'0');
 
 -- --------------------------------------------------------
 
@@ -482,7 +484,7 @@ CREATE TABLE `view_room_bed` (
 --
 DROP TABLE IF EXISTS `view_emergency_now_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_emergency_now_detail`  AS  select `e`.`id_emergency` AS `id_emergency`,`r`.`label` AS `labelRoom`,`b`.`label` AS `labelBed`,`b`.`priority` AS `priority`,`e`.`time_request` AS `time_request` from ((`emergency` `e` join `room` `r` on(`e`.`room_id` = `r`.`id_room`)) join `bed` `b` on(`e`.`bed_id` = `b`.`id_bed`)) where `e`.`enabled` = 1 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_emergency_now_detail`  AS  select `e`.`id_emergency` AS `id_emergency`,`r`.`label` AS `labelRoom`,`b`.`label` AS `labelBed`,`b`.`priority` AS `priority`,`e`.`time_request` AS `time_request` from ((`emergency` `e` join `room` `r` on((`e`.`room_id` = `r`.`id_room`))) join `bed` `b` on((`e`.`bed_id` = `b`.`id_bed`))) where (`e`.`enabled` = 1) ;
 
 -- --------------------------------------------------------
 
@@ -491,7 +493,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_emergency_
 --
 DROP TABLE IF EXISTS `view_history_attend`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_history_attend`  AS  select `dem`.`id_demand` AS `id_demand`,`nr`.`id_nurse` AS `id_nurse`,`nr`.`enabled` AS `nurseEnabled`,`nr`.`first_name` AS `first_name`,`nr`.`last_name` AS `last_name`,`em`.`time_request` AS `time_request`,`dem`.`time_attend` AS `time_attend`,`b`.`label` AS `labelBed`,`r`.`label` AS `labelRoom`,`dem`.`created` AS `demand_created` from ((((`demand` `dem` join `nurse` `nr` on(`dem`.`nurse_id` = `nr`.`id_nurse`)) join `emergency` `em` on(`dem`.`emergency_id` = `em`.`id_emergency`)) join `room` `r` on(`em`.`room_id` = `r`.`id_room`)) join `bed` `b` on(`em`.`bed_id` = `b`.`id_bed`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_history_attend`  AS  select `dem`.`id_demand` AS `id_demand`,`nr`.`id_nurse` AS `id_nurse`,`nr`.`enabled` AS `nurseEnabled`,`nr`.`first_name` AS `first_name`,`nr`.`last_name` AS `last_name`,`em`.`time_request` AS `time_request`,`dem`.`time_attend` AS `time_attend`,`b`.`label` AS `labelBed`,`r`.`label` AS `labelRoom`,`dem`.`created` AS `demand_created` from ((((`demand` `dem` join `nurse` `nr` on((`dem`.`nurse_id` = `nr`.`id_nurse`))) join `emergency` `em` on((`dem`.`emergency_id` = `em`.`id_emergency`))) join `room` `r` on((`em`.`room_id` = `r`.`id_room`))) join `bed` `b` on((`em`.`bed_id` = `b`.`id_bed`))) ;
 
 -- --------------------------------------------------------
 
@@ -500,7 +502,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_history_at
 --
 DROP TABLE IF EXISTS `view_room_bed`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `view_room_bed`  AS  select `r`.`id_room` AS `id_room`,`r`.`label` AS `room_label`,`b`.`id_bed` AS `id_bed`,`b`.`label` AS `bed_label`,`b`.`priority` AS `priority` from ((`room_bed` `rb` join `bed` `b` on(`b`.`id_bed` = `rb`.`bed_id`)) join `room` `r` on(`r`.`id_room` = `rb`.`room_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_room_bed`  AS  select `r`.`id_room` AS `id_room`,`r`.`label` AS `room_label`,`b`.`id_bed` AS `id_bed`,`b`.`label` AS `bed_label`,`b`.`priority` AS `priority` from ((`room_bed` `rb` join `bed` `b` on((`b`.`id_bed` = `rb`.`bed_id`))) join `room` `r` on((`r`.`id_room` = `rb`.`room_id`))) ;
 
 --
 -- Índices para tablas volcadas
@@ -568,13 +570,13 @@ ALTER TABLE `bed`
 -- AUTO_INCREMENT de la tabla `demand`
 --
 ALTER TABLE `demand`
-  MODIFY `id_demand` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_demand` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `emergency`
 --
 ALTER TABLE `emergency`
-  MODIFY `id_emergency` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_emergency` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `nurse`
