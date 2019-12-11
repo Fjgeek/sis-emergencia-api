@@ -77,7 +77,7 @@
         "bed_id" => $id_bed,
         "enabled"=> new FluentLiteral("1"),
       );
-      // $request_emergency = $this->fpdo->from($this->table)->where($where)->limit(1)->execute();
+      $request_emergency = $this->fpdo->from($this->table)->where($where)->limit(1)->execute();
       if($request_emergency->rowCount() != 0){ // Si existe una peticion
 
         // Verificamos si existe la enfermera
